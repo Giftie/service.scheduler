@@ -1,0 +1,13 @@
+0.0.1 
+This service script allows you to schedule XBMC's built-in functions.  
+These built-in functions include starting scripts, Database updates. 
+See "http://wiki.xbmc.org/index.php?title=List_of_built-in_functions" 
+for all the available functions.
+
+I have settings built-in for Video and Music Library updates.  Also I have
+cdART Manager built-in functions(Autodownload and Database update)
+There is also schedules for up to 10 custom functions.
+
+0.0.2
+Change - change how script runs to allow timers
+Add - add Artwork Downloader functions
