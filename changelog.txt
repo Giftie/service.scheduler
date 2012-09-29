@@ -11,3 +11,6 @@ There is also schedules for up to 10 custom functions.
 0.0.2
 Change - change how script runs to allow timers
 Add - add Artwork Downloader functions
+
+0.0.3
+Remove - removed built in Artwork Downloader as per request.

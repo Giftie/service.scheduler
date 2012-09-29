@@ -14,12 +14,10 @@ false = False
 null = None
 
 cdart_script                     = "RunScript(script.cdartmanager,%s)"
-artwork_downloader_script        = "RunScript(script.artwork.downloader,%s)"
 video_library_script             = "UpdateLibrary(video)"
 music_library_script             = "UpdateLibrary(music)"
 cdartmanager                     = eval( __addon__.getSetting( "cdartmanager" ) )
 cdart_update                     = eval( __addon__.getSetting( "cdart_update" ) )
-artwork_downloader               = eval( __addon__.getSetting( "artwork_downloader" ) )
 video_library                    = eval( __addon__.getSetting( "video_library" ) )
 music_library                    = eval( __addon__.getSetting( "music_library" ) )
 custom1                          = eval( __addon__.getSetting( "custom1" ) )
@@ -34,7 +32,6 @@ custom9                          = eval( __addon__.getSetting( "custom9" ) )
 custom10                         = eval( __addon__.getSetting( "custom10" ) )
 cdart_disable_video              = eval( __addon__.getSetting( "custom10_disable_video" ) )
 cdart_update_disable_video       = eval( __addon__.getSetting( "custom10_disable_video" ) )
-artwork_downloader_disable_video = eval( __addon__.getSetting( "custom10_disable_video" ) )
 custom1_disable_video            = eval( __addon__.getSetting( "custom10_disable_video" ) )
 custom2_disable_video            = eval( __addon__.getSetting( "custom10_disable_video" ) )
 custom3_disable_video            = eval( __addon__.getSetting( "custom10_disable_video" ) )
@@ -47,7 +44,6 @@ custom9_disable_video            = eval( __addon__.getSetting( "custom10_disable
 custom10_disable_video           = eval( __addon__.getSetting( "custom10_disable_video" ) )
 cdart_disable_music              = eval( __addon__.getSetting( "custom10_disable_music" ) )
 cdart_update_disable_music       = eval( __addon__.getSetting( "custom10_disable_music" ) )
-artwork_downloader_disable_music = eval( __addon__.getSetting( "custom10_disable_music" ) )
 custom1_disable_music            = eval( __addon__.getSetting( "custom10_disable_music" ) )
 custom2_disable_music            = eval( __addon__.getSetting( "custom10_disable_music" ) )
 custom3_disable_music            = eval( __addon__.getSetting( "custom10_disable_music" ) )
@@ -82,7 +78,6 @@ class Scheduler():
         self.music_library_day_triggerd       = False
         self.cdart_day_triggerd               = False
         self.cdart_update_day_triggerd        = False
-        self.artwork_downloader_day_triggerd  = False
         self.custom1_day_triggerd             = False
         self.custom2_day_triggerd             = False
         self.custom3_day_triggerd             = False
@@ -97,7 +92,6 @@ class Scheduler():
         self.music_library_time_trigger       = False
         self.cdart_time_trigger               = False
         self.cdart_update_time_trigger        = False
-        self.artwork_downloader_time_trigger  = False
         self.custom1_time_trigger             = False
         self.custom2_time_trigger             = False
         self.custom3_time_trigger             = False
@@ -112,7 +106,6 @@ class Scheduler():
         self.music_library_triggered          = False
         self.cdart_triggered                  = False
         self.cdart_update_triggered           = False
-        self.artwork_downloader_triggered     = False
         self.custom1_triggered                = False
         self.custom2_triggered                = False
         self.custom3_triggered                = False
@@ -128,7 +121,6 @@ class Scheduler():
         self.cdart_timer_set                  = False
         self.video_library_timer_set          = False
         self.music_library_timer_set          = False
-        self.artwork_downloader_timer_set     = False
         self.custom1_timer_set                = False
         self.custom2_timer_set                = False
         self.custom3_timer_set                = False
@@ -141,7 +133,6 @@ class Scheduler():
         self.custom10_timer_set               = False
         self.cdart_delay                      = 0
         self.cdart_update_delay               = 0
-        self.artwork_downloader_delay         = 0
         self.custom1_delay                    = 0
         self.custom2_delay                    = 0
         self.custom3_delay                    = 0
@@ -170,15 +161,6 @@ class Scheduler():
                 self.cdart_update_time     = __addon__.getSetting( "cdart_update_time" )
             if self.cdart_update_cycle == 2: # If Hourly, set hour interval
                 self.cdart_update_interval          = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "cdart_update_interval" ) ) ]
-        if artwork_downloader:
-            self.artwork_downloader_mode                  = int( __addon__.getSetting( "artwork_downloader_mode" ) ) # available modes All Artwork(0), TV Artwork(1), Movie Artwork(2), Music Video Artwork
-            self.artwork_downloader_cycle                 = int( __addon__.getSetting( "artwork_downloader_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            if self.artwork_downloader_cycle == 0: # If Weekly set day of the week
-                self.artwork_downloader_day               = int( __addon__.getSetting( "artwork_downloader_day" ) )
-            if self.artwork_downloader_cycle == 0 or self.cdart_cycle == 1: # If Weekly or Daily, set start time
-                self.artwork_downloader_time     = __addon__.getSetting( "artwork_downloader_time" )
-            if self.artwork_downloader_cycle == 2: # If Hourly, set hour interval
-                self.artwork_downloader_interval          = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "artwork_downloader_interval" ) ) ]
         if video_library:
             self.video_library_cycle         = int( __addon__.getSetting( "video_library_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
             if self.video_library_cycle == 0: # If Weekly set day of the week
@@ -308,12 +290,6 @@ class Scheduler():
             if self.cdart_timer_set:
                 self.cdart_timer.cancel()
                 self.cdart_timer_set = False
-        elif mode == "artwork_downloader":
-            self.artwork_downloader_triggered = False
-            self.artwork_downloader_delay     = 0
-            if self.artwork_downloader_timer_set:
-                self.artwork_downloader_timer.cancel()
-                self.artwork_downloader_timer_set = False
         elif mode == "custom1":
             self.custom1_triggered            = False
             self.custom1_delay                = 0
@@ -513,34 +489,6 @@ class Scheduler():
                 self.cdart_timer = Timer( self.cdart_update_interval * hour_multiplier, self.trigger_builtin, [ self.builtin_function, "cdart" ] )
                 self.cdart_timer.setName('cdART_Timer')
                 self.cdart_timer.start()
-        if artwork_downloader and ( ( artwork_downloader_disable_music and self.music_scan ) or ( artwork_downloader_disable_video and self.video_scan ) ):
-            if artwork_downloader_disable_music and self.music_scan:
-                self.artwork_downloader_delay = 60
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.artwork_downloader_delay, xbmc.LOGNOTICE )
-            elif artwork_downloader_disable_video and self.video_scan:
-                self.artwork_downloader_delay = 60
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.artwork_downloader_delay, xbmc.LOGNOTICE )
-        elif artwork_downloader and not ( ( artwork_downloader_disable_music and self.music_scan ) or ( artwork_downloader_disable_video and self.video_scan ) ):
-            self.builtin_function = artwork_downloader_script % ( "silent=true", "silent=true,mediatype=tvshows", "silent=true,mediatype=movies", "silent=true,mediatype=musicvideos" )[ self.artwork_downloader_mode ]
-            if self.artwork_downloader_cycle == 0 and self.current_day == self.artwork_downloader_day and not self.artwork_downloader_day_triggerd:
-                if ( self.current_time == self.artwork_downloader_time or ( self.current_time > self.artwork_downloader_time and self.current_time < ( self.test_time( self.artwork_downloader_time, test_interval + self.artwork_downloader_delay ) ) ) ) and not self.artwork_downloader_time_trigger:
-                    self.trigger_builtin( self.builtin_function, "artwork_downloader" )
-                    self.artwork_downloader_time_trigger = True
-            elif self.artwork_downloader_cycle == 0 and not self.current_day == self.artwork_downloader:
-                self.artwork_downloader_triggered = False
-                self.artwork_downloader_time_trigger = False
-            elif self.artwork_downloader_cycle == 1 and ( self.current_time == self.artwork_downloader_time or ( self.current_time > self.artwork_downloader_time and self.current_time < ( self.test_time( self.artwork_downloader_time, test_interval + self.artwork_downloader_delay ) ) ) ) and not self.artwork_downloader_triggered:
-                self.trigger_builtin( self.builtin_function, "artwork_downloader" )
-                self.artwork_downloader_time_trigger = True
-            elif self.artwork_downloader_cycle == 1 and self.current_time > self.test_time( self.artwork_downloader_time, test_interval + 1 ):
-                self.artwork_downloader_time_trigger = False
-            elif self.artwork_downloader_cycle == 2 and not self.artwork_downloader_triggered:
-                xbmc.log( "[service.scheduler] - Starting Artwork Downloader Hourly Schedule, every %s Hours" % self.artwork_downloader_interval, xbmc.LOGNOTICE )
-                self.artwork_downloader_triggered = True
-                self.artwork_downloader_timer_set = True
-                self.artwork_downloader_timer = Timer( self.artwork_downloader_interval * hour_multiplier, self.trigger_builtin, [ self.builtin_function, "artwork_downloader" ] )
-                self.artwork_downloader_timer.setName('Artwork_Downloader_Timer')
-                self.artwork_downloader_timer.start()
         if custom1 and ( ( custom1_disable_music and self.music_scan ) or ( custom1_disable_video and self.video_scan ) ):
             if custom1_disable_music and self.music_scan:
                 self.custom1_delay = 60
