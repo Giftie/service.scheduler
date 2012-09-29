@@ -23,28 +23,34 @@
         <setting label="32002" type="lsep" /> <!-- cdART Manager -->
         <setting type="sep" />
         <setting label="32041" type="bool" id="cdartmanager" default="false" />
-        <setting label="32058" type="enum" id="cdart_cycle" visible="eq(-1,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="cdart_day" visible="eq(-2,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="cdart_time" visible="eq(-3,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="cdart_interval" visible="eq(-4,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
-        <setting label="32064" type="enum" id="cdart_mode" visible="eq(-5,true)" lvalues="32032|32033|32034|32035|32036|32037|32038" default="0" />
+        <setting label="32086" type="bool" id="cdart_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="cdart_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32058" type="enum" id="cdart_cycle" visible="eq(-3,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="cdart_day" visible="eq(-4,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="cdart_time" visible="eq(-5,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="cdart_interval" visible="eq(-6,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32064" type="enum" id="cdart_mode" visible="eq(-7,true)" lvalues="32032|32033|32034|32035|32036|32037|32038" default="0" />
+        <setting type="sep" />
         <setting label="32057" type="bool" id="cdart_update" default="false" />
+        <setting label="32086" type="bool" id="cdart_update_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="cdart_update_disable_music" visible="eq(-2,true)" default="true" />
         <setting label="32058" type="enum" id="cdart_update_cycle" visible="eq(-1,true)" lvalues="32014|32015|32016"  default="1" />
         <setting label="32017" type="enum" id="cdart_update_day" visible="eq(-2,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
         <setting label="32059" type="time" id="cdart_update_time" visible="eq(-3,true) + lt(-2,2)" default="00:00" />
         <setting label="32060" type="enum" id="cdart_update_interval" visible="eq(-4,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
-        
     </category>
     <category label="32065"> <!-- Artwork Downloader -->
         <setting type="sep" />
         <setting label="32065" type="lsep" /> <!-- Artwork Downloader -->
         <setting type="sep" />
         <setting label="32085" type="bool" id="artwork_downloader" default="false" />
-        <setting label="32058" type="enum" id="artwork_downloader_cycle" visible="eq(-1,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="artwork_downloader_day" visible="eq(-2,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="artwork_downloader_time" visible="eq(-3,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="artwork_downloader_interval" visible="eq(-4,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
-        <setting label="32064" type="enum" id="artwork_downloader_mode" visible="eq(-5,true)" lvalues="32066|32067|32068|32069" default="0" />
+        <setting label="32086" type="bool" id="artwork_downloader_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="artwork_downloader_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32058" type="enum" id="artwork_downloader_cycle" visible="eq(-3,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="artwork_downloader_day" visible="eq(-4,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="artwork_downloader_time" visible="eq(-5,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="artwork_downloader_interval" visible="eq(-6,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32064" type="enum" id="artwork_downloader_mode" visible="eq(-7,true)" lvalues="32066|32067|32068|32069" default="0" />
         <!-- <setting label="32070" type="enum" id="artwork_downloader_type" visible="eq(-1,1)" enable="eq(-1,1)" lvalues="32066|32071|32072|32073|32074|32075|32076|32077|32078|32079|32080|32081|32082" default="0" /> -->
         <!-- <setting label="32070" type="enum" id="artwork_downloader_type" visible="eq(-2,1)" enable="eq(-2,1)" lvalues="32066|32071|32073|32074|32075|32076|32077|32083|32084|32080" default="0" /> -->
         <!-- <setting label="32070" type="enum" id="artwork_downloader_type" visible="eq(-3,1)" enable="eq(-3,1)" lvalues="32066|32071|32073|32074|32075|32076|32077|32083" default="0" /> -->
@@ -54,95 +60,115 @@
         <setting label="32055" type="lsep" /> <!-- Custom Scripting -->
         <setting type="sep" />
         <setting label="32042" type="bool" id="custom1" default="false" />
-        <setting label="32061" type="text" id="custom1_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom1_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom1_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom1_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom1_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32086" type="bool" id="custom1_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom1_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom1_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom1_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom1_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom1_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom1_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
         <setting type="sep" />
         <setting label="32043" type="bool" id="custom2" default="false" />
-        <setting label="32061" type="text" id="custom2_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom2_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom2_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom2_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom2_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32086" type="bool" id="custom2_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom2_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom2_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom2_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom2_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom2_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom2_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
         <setting type="sep" />
         <setting label="32044" type="bool" id="custom3" default="false" />
-        <setting label="32061" type="text" id="custom3_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom3_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom3_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom3_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom3_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32086" type="bool" id="custom3_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom3_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom3_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom3_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom3_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom3_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom3_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
         <setting type="sep" />
         <setting label="32045" type="bool" id="custom4" default="false" />
-        <setting label="32061" type="text" id="custom4_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom4_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom4_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom4_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom4_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32086" type="bool" id="custom4_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom4_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom4_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom4_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom4_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom4_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom4_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
         <setting type="sep" />
         <setting label="32046" type="bool" id="custom5" default="false" />
-        <setting label="32061" type="text" id="custom5_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom5_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom5_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom5_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom5_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
-        <setting type="sep" />
+        <setting label="32086" type="bool" id="custom5_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom5_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom5_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom5_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom5_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom5_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom5_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+    </category>
+    <category label="32088">
         <setting label="32047" type="bool" id="custom6" default="false" />
-        <setting label="32061" type="text" id="custom6_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom6_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom6_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom6_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom6_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32086" type="bool" id="custom6_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom6_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom6_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom6_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom6_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom6_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom6_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
         <setting type="sep" />
         <setting label="32048" type="bool" id="custom7" default="false" />
-        <setting label="32061" type="text" id="custom7_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom7_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom7_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom7_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom7_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32086" type="bool" id="custom7_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom7_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom7_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom7_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom7_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom7_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom7_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
         <setting type="sep" />
         <setting label="32049" type="bool" id="custom8" default="false" />
-        <setting label="32061" type="text" id="custom8_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom8_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom8_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom8_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom8_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32086" type="bool" id="custom8_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom8_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom8_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom8_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom8_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom8_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom8_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
         <setting type="sep" />
         <setting label="32050" type="bool" id="custom9" default="false" />
-        <setting label="32061" type="text" id="custom9_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom9_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom9_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom9_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom9_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32086" type="bool" id="custom9_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom9_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom9_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom9_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom9_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom9_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom9_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
         <setting type="sep" />
         <setting label="32051" type="bool" id="custom10" default="false" />
-        <setting label="32061" type="text" id="custom10_script" visible="eq(-1,true)" default="" />
-        <setting label="32062" type="lsep" visible="eq(-2,true)" />
-        <setting label="32063" type="lsep" visible="eq(-3,true)" />
-        <setting label="32058" type="enum" id="custom10_cycle" visible="eq(-4,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="custom10_day" visible="eq(-5,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="custom10_time" visible="eq(-6,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="custom10_interval" visible="eq(-7,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
-        
+        <setting label="32086" type="bool" id="custom10_disable_video" visible="eq(-1,true)" default="false" />
+        <setting label="32087" type="bool" id="custom10_disable_music" visible="eq(-2,true)" default="true" />
+        <setting label="32061" type="text" id="custom10_script" visible="eq(-3,true)" default="" />
+        <setting label="32062" type="lsep" visible="eq(-4,true)" />
+        <setting label="32063" type="lsep" visible="eq(-5,true)" />
+        <setting label="32058" type="enum" id="custom10_cycle" visible="eq(-6,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="custom10_day" visible="eq(-7,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="custom10_time" visible="eq(-8,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="custom10_interval" visible="eq(-9,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
     </category>
     <category label="32053"> <!-- Extra Settings -->
         <setting type="sep" />

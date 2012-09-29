@@ -55,7 +55,7 @@
     <string id="32052">XBMC Library Scheduling</string>
     <string id="32053">Extra Settings</string>
     <string id="32054">Interval between Schedule triggers(in minutes)</string>
-    <string id="32055">Custom Builtin Scripting</string>
+    <string id="32055">Custom Builtin Scripting(1-5)</string>
     <string id="32056">Enable default Interval between triggers(15 Minutes)</string>
     <string id="32057">Enable cdART Manager Scheduled Update</string>
     <string id="32058">     Type of schedule</string>
@@ -86,5 +86,8 @@
     <string id="32083">discART</string>
     <string id="32084">Thumbnail</string>
     <string id="32085">Enable Artwork Downloader Scheduling</string>
+    <string id="32086">Disable During Video Library Scan</string>
+    <string id="32087">Disable During Music Library Scan</string>
+    <string id="32088">Custom Builtin Scripting(1-5)</string>
 </strings>
     
