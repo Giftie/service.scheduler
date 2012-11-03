@@ -34,10 +34,10 @@
         <setting label="32057" type="bool" id="cdart_update" default="false" />
         <setting label="32086" type="bool" id="cdart_update_disable_video" visible="eq(-1,true)" default="false" />
         <setting label="32087" type="bool" id="cdart_update_disable_music" visible="eq(-2,true)" default="true" />
-        <setting label="32058" type="enum" id="cdart_update_cycle" visible="eq(-1,true)" lvalues="32014|32015|32016"  default="1" />
-        <setting label="32017" type="enum" id="cdart_update_day" visible="eq(-2,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
-        <setting label="32059" type="time" id="cdart_update_time" visible="eq(-3,true) + lt(-2,2)" default="00:00" />
-        <setting label="32060" type="enum" id="cdart_update_interval" visible="eq(-4,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
+        <setting label="32058" type="enum" id="cdart_update_cycle" visible="eq(-3,true)" lvalues="32014|32015|32016"  default="1" />
+        <setting label="32017" type="enum" id="cdart_update_day" visible="eq(-4,true) + eq(-1,0)" lvalues="32018|32019|32020|32021|32022|32023|32024" default="0" />
+        <setting label="32059" type="time" id="cdart_update_time" visible="eq(-5,true) + lt(-2,2)" default="00:00" />
+        <setting label="32060" type="enum" id="cdart_update_interval" visible="eq(-6,true) + eq(-3,2)" lvalues="32027|32028|32029|32030|32031" default="3" />
     </category>
     <category label="32055"> <!-- Custom -->
         <setting type="sep" />
