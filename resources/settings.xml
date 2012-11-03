@@ -160,6 +160,7 @@
         <setting type="sep" />
         <setting label="32056" type="bool" id="default_interval" default="false" />
         <setting label="32054" id="sleep_interval" option="int" visible="!eq(-1,true)" type="slider" range="1,60" default="15" />
+        <setting label="32089" type="bool" id="enable_logging" default="true" />
     </category>
 </settings>
     

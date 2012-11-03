@@ -86,8 +86,9 @@
     <string id="32083">discART</string>
     <string id="32084">Thumbnail</string>
     <string id="32085">Enable Artwork Downloader Scheduling</string>
-    <string id="32086">Disable During Video Library Scan</string>
-    <string id="32087">Disable During Music Library Scan</string>
+    <string id="32086">Disable during video library scan</string>
+    <string id="32087">Disable during music library scan</string>
     <string id="32088">Custom Builtin Scripting(1-5)</string>
+    <string id="32089">Enable logging to file</string>
 </strings>
     
