@@ -69,6 +69,7 @@ hour_multiplier                  = 3600  # Normally set to 3600 to convert hours
 cdart_time_delay                 = test_interval
 cdart_update_time_delay          = 15    # In minutes
 music_time_delay                 = 60    # In minutes
+video_time_delay                 = 60    # In minutes
 general_time_delay               = 60    # In minutes
 
 def load_settings():
@@ -121,6 +122,7 @@ def load_settings():
     cdart_time_delay                 = test_interval
     cdart_update_time_delay          = 15    # In minutes
     music_time_delay                 = 60    # In minutes
+    video_time_delay                 = 60    # In minutes
     general_time_delay               = 60    # In minutes
 
 class Scheduler():
@@ -206,6 +208,7 @@ class Scheduler():
         self.custom9_timer_set                = False
         self.custom10_timer_set               = False
         self.music_delay                      = 0
+        self.video_delay                      = 0
         self.cdart_delay                      = 0
         self.cdart_update_delay               = 0
         self.custom1_delay                    = 0
@@ -218,6 +221,20 @@ class Scheduler():
         self.custom8_delay                    = 0
         self.custom9_delay                    = 0
         self.custom10_delay                   = 0
+        self.custom1_time                     = "99:99"
+        self.custom2_time                     = "99:99"
+        self.custom3_time                     = "99:99"
+        self.custom4_time                     = "99:99"
+        self.custom5_time                     = "99:99"
+        self.custom6_time                     = "99:99"
+        self.custom7_time                     = "99:99"
+        self.custom8_time                     = "99:99"
+        self.custom9_time                     = "99:99"
+        self.custom10_time                    = "99:99"
+        self.cdart_time                       = "99:99"
+        self.cdart_update_time                = "99:99"
+        self.video_library_time               = "99:99"
+        self.music_library_time               = "99:99"
 
     def set_timer_options( self ):
         if cdartmanager:
@@ -350,6 +367,7 @@ class Scheduler():
         self.store_log_file( builtin_func, mode )
         if mode == "video":
             self.video_library_triggered      = False
+            self.video_delay                  = 0
             self.video_scan                   = True
             if self.video_library_timer_set:
                 self.video_library_timer.cancel()
@@ -486,150 +504,132 @@ class Scheduler():
         
     def schedule_check( self ):
         # Check and set required delays
-        if cdart_update and ( ( cdart_update_disable_music and self.music_scan ) or ( cdart_update_disable_video and self.video_scan ) ) or ( ( self.cdartmanager_running ) and self.cdart_update_delay < 1 ) and not self.cdartmanager_update:
-            if cdart_update_disable_music and self.music_scan:
-                self.cdart_update_delay = cdart_update_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
-            elif cdart_update_disable_video and self.video_scan:
-                self.cdart_update_delay = cdart_update_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
-            elif self.cdartmanager_running:
-                self.cdart_update_delay = cdart_update_time_delay
-                xbmc.log( "[service.scheduler] - cdART Manager already running, delaying %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
-        elif cdart_update and ( self.current_time > ( self.test_time( self.cdart_update_time, test_interval + self.cdart_update_delay ) ) and self.current_time < ( self.test_time( self.cdart_update_time, test_interval + self.cdart_update_delay + 2 ) ) and self.cdartmanager_running and not self.cdartmanager_update ):
-            self.cdart_update_delay += cdart_update_time_delay
-            xbmc.log( "[service.scheduler] - Timer ran out, but cdART Manager is still running, adding another 60min. Total Delay: %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
-        if cdartmanager and ( ( cdart_disable_music and self.music_scan ) or ( cdart_disable_video and self.video_scan ) ) or ( ( self.cdartmanager_update ) and self.cdart_delay < 1 ):
-            if cdart_disable_music and self.music_scan:
-                self.cdart_delay = cdart_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
-            elif cdart_disable_video and self.video_scan:
-                self.cdart_delay = cdart_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
-            elif ( self.cdartmanager_update or self.cdartmanager_running ):
-                self.cdart_delay = cdart_time_delay
-                if self.cdartmanager_update:
-                    xbmc.log( "[service.scheduler] - cdART Manager already running in mode: Update, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
-                if self.cdartmanager_running:
-                    xbmc.log( "[service.scheduler] - cdART Manager already running in mode: Running, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
-        elif cdartmanager and ( self.current_time > ( self.test_time( self.cdart_time, test_interval + self.cdart_delay ) ) and self.current_time < ( self.test_time( self.cdart_time, test_interval + self.cdart_delay + 2 ) ) and ( self.cdartmanager_running or self.cdartmanager_update ) ):
-            self.cdart_delay += cdart_time_delay
-            xbmc.log( "[service.scheduler] - Timer ran out, but cdART Manager is still running, adding another 60min. Total Delay: %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
-        if music_library and ( self.cdartmanager_update or self.cdartmanager_running ) and self.music_delay < 1: # Just to delay music library build if cdART Manager is running
-            self.music_delay = music_time_delay
-        if custom1 and ( ( custom1_disable_music and self.music_scan ) or ( custom1_disable_video and self.video_scan ) ) and self.custom1_delay < 1:
-            if custom1_disable_music and self.music_scan:
-                self.custom1_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom1_delay, xbmc.LOGNOTICE )
-            elif custom1_disable_video and self.video_scan:
-                self.custom1_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom1_delay, xbmc.LOGNOTICE )
-        if custom2 and ( ( custom2_disable_music and self.music_scan ) or ( custom2_disable_video and self.video_scan ) ) and self.custom2_delay < 1:
-            if custom2_disable_music and self.music_scan:
-                self.custom2_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom2_delay, xbmc.LOGNOTICE )
-            elif custom2_disable_video and self.video_scan:
-                self.custom2_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom2_delay, xbmc.LOGNOTICE )
-        if custom3 and ( ( custom3_disable_music and self.music_scan ) or ( custom3_disable_video and self.video_scan ) ) and self.custom3_delay < 1:
-            if custom3_disable_music and self.music_scan:
-                self.custom3_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom3_delay, xbmc.LOGNOTICE )
-            elif custom3_disable_video and self.video_scan:
-                self.custom3_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom3_delay, xbmc.LOGNOTICE )
-        if custom4 and ( ( custom4_disable_music and self.music_scan ) or ( custom4_disable_video and self.video_scan ) ) and self.custom4_delay < 1:
-            if custom4_disable_music and self.music_scan:
-                self.custom4_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom4_delay, xbmc.LOGNOTICE )
-            elif custom4_disable_video and self.video_scan:
-                self.custom4_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom4_delay, xbmc.LOGNOTICE )
-        if custom5 and ( ( custom5_disable_music and self.music_scan ) or ( custom5_disable_video and self.video_scan ) ) and self.custom5_delay < 1:
-            if custom5_disable_music and self.music_scan:
-                self.custom5_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom5_delay, xbmc.LOGNOTICE )
-            elif custom5_disable_video and self.video_scan:
-                self.custom5_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom5_delay, xbmc.LOGNOTICE )
-        if custom6 and ( ( custom6_disable_music and self.music_scan ) or ( custom6_disable_video and self.video_scan ) ) and self.custom6_delay < 1:
-            if custom6_disable_music and self.music_scan:
-                self.custom6_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom6_delay, xbmc.LOGNOTICE )
-            elif custom6_disable_video and self.video_scan:
-                self.custom6_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Library Library Scan in Progress, delaying %s Minutes " % self.custom6_delay, xbmc.LOGNOTICE )
-        if custom7 and ( ( custom7_disable_music and self.music_scan ) or ( custom7_disable_video and self.video_scan ) ) and self.custom7_delay < 1:
-            if custom7_disable_music and self.music_scan:
-                self.custom7_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom7_delay, xbmc.LOGNOTICE )
-            elif custom7_disable_video and self.video_scan:
-                self.custom7_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Library Library Scan in Progress, delaying %s Minutes " % self.custom7_delay, xbmc.LOGNOTICE )
-        if custom8 and ( ( custom8_disable_music and self.music_scan ) or ( custom8_disable_video and self.video_scan ) ) and self.custom8_delay < 1:
-            if custom8_disable_music and self.music_scan:
-                self.custom8_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom8_delay, xbmc.LOGNOTICE )
-            elif custom8_disable_video and self.video_scan:
-                self.custom8_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom8_delay, xbmc.LOGNOTICE )
-        if custom9 and ( ( custom9_disable_music and self.music_scan ) or ( custom9_disable_video and self.video_scan ) )  and self.custom9_delay < 1:
-            if custom9_disable_music and self.music_scan:
-                self.custom9_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom9_delay, xbmc.LOGNOTICE )
-            elif custom9_disable_video and self.video_scan:
-                self.custom9_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom9_delay, xbmc.LOGNOTICE )
-        if custom10 and ( ( custom10_disable_music and self.music_scan ) or ( custom10_disable_video and self.video_scan ) ) and self.custom10_delay < 1:
-            if custom10_disable_music and self.music_scan:
-                self.custom10_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom10_delay, xbmc.LOGNOTICE )
-            elif ( custom10_disable_video and self.video_scan ):
-                self.custom10_delay = general_time_delay
-                xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom10_delay, xbmc.LOGNOTICE )
-        # Check schedule
+        if cdart_update:
+            if ( ( cdart_update_disable_music and self.music_scan ) or ( cdart_update_disable_video and self.video_scan ) ) or ( ( self.cdartmanager_running ) and self.cdart_update_delay < 1 ) and not self.cdartmanager_update:
+                if cdart_update_disable_music and self.music_scan:
+                    self.cdart_update_delay = cdart_update_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
+                elif cdart_update_disable_video and self.video_scan:
+                    self.cdart_update_delay = cdart_update_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
+                elif self.cdartmanager_running:
+                    self.cdart_update_delay = cdart_update_time_delay
+                    xbmc.log( "[service.scheduler] - cdART Manager already running, delaying %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
+            if not self.cdart_update_time == "99:99":
+                if ( self.current_time > ( self.test_time( self.cdart_update_time, test_interval + self.cdart_update_delay ) ) and self.current_time < ( self.test_time( self.cdart_update_time, test_interval + self.cdart_update_delay + 2 ) ) and self.cdartmanager_running and not self.cdartmanager_update ):
+                    self.cdart_update_delay += cdart_update_time_delay
+                    xbmc.log( "[service.scheduler] - Timer ran out, but cdART Manager is still running, adding more time. Total Delay: %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
+        if cdartmanager:
+            if ( ( cdart_disable_music and self.music_scan ) or ( cdart_disable_video and self.video_scan ) ) or ( ( self.cdartmanager_update ) and self.cdart_delay < 1 ):
+                if cdart_disable_music and self.music_scan:
+                    self.cdart_delay = cdart_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
+                elif cdart_disable_video and self.video_scan:
+                    self.cdart_delay = cdart_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
+                elif ( self.cdartmanager_update or self.cdartmanager_running ):
+                    self.cdart_delay = cdart_time_delay
+                    if self.cdartmanager_update:
+                        xbmc.log( "[service.scheduler] - cdART Manager already running in mode: Update, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
+                    if self.cdartmanager_running:
+                        xbmc.log( "[service.scheduler] - cdART Manager already running in mode: Running, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
+            if not self.cdart_time == "99:99":
+                if self.current_time > ( self.test_time( self.cdart_time, test_interval + self.cdart_delay ) ) and self.current_time < self.test_time( self.cdart_time, test_interval + self.cdart_delay + 2 ):
+                    self.cdart_delay += cdart_time_delay
+                    xbmc.log( "[service.scheduler] - Timer ran out, but cdART Manager is still running, adding more time. Total Delay: %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
+        if music_library:
+            if ( self.cdartmanager_update or self.cdartmanager_running ) and self.music_delay < 1: # Just to delay music library build if cdART Manager is running
+                self.music_delay = music_time_delay
+            if not self.music_library_time == "99:99":
+                if ( self.current_time > ( self.test_time( self.music_library_time, test_interval + self.music_delay ) ) and self.current_time < self.test_time( self.music_library_time, test_interval + self.music_delay + 2 ) ):
+                    self.music_delay += music_time_delay
+                    xbmc.log( "[service.scheduler] - Timer ran out, adding more time. Total Delay: %s Minutes" % self.music_delay, xbmc.LOGNOTICE )
         if video_library:
-            self.builtin_function = video_library_script
-            if self.video_library_cycle == 0 and self.current_day == self.video_library_day and not self.video_library_day_triggerd:
-                if ( self.current_time == self.video_library_time or ( self.current_time > self.video_library_time and self.current_time < ( self.test_time( self.video_library_time, test_interval ) ) ) ) and not self.video_library_time_trigger:
-                    self.trigger_builtin( self.builtin_function, "video" )
-                    self.video_library_time_trigger = True
-            elif self.video_library_cycle == 0 and not self.current_day == self.video_library_day:
-                self.video_library_day_triggerd = False
-                self.video_library_time_trigger = False
-            elif self.video_library_cycle == 1 and ( self.current_time == self.video_library_time or ( self.current_time > self.video_library_time and self.current_time < ( self.test_time( self.video_library_time, test_interval ) ) ) ) and not self.video_library_time_trigger:
-                self.trigger_builtin( self.builtin_function, "video" )
-                self.video_library_time_trigger = True
-            elif self.video_library_cycle == 1 and self.current_time > self.test_time( self.video_library_time, test_interval + 1 ):
-                self.video_library_time_trigger = False
-            elif self.video_library_cycle == 2 and not self.video_library_triggered:
-                xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.video_library_interval, xbmc.LOGNOTICE )
-                self.video_library_triggered = True
-                self.video_library_timer_set = True
-                self.video_library_timer = Timer( self.video_library_interval * hour_multiplier, self.trigger_builtin, [ self.builtin_function, "video" ] )
-                self.video_library_timer.setName('Video_Library_Timer')
-                self.video_library_timer.start()
-        if music_library and not ( self.cdartmanager_update or self.cdartmanager_running ):
-            self.builtin_function = music_library_script
-            if self.music_library_cycle == 0 and self.current_day == self.music_library_day and not self.music_library_day_triggerd:
-                if ( self.current_time == self.music_library_time or ( self.current_time > self.music_library_time and self.current_time < ( self.test_time( self.music_library_time, test_interval + self.music_delay ) ) ) ) and not self.music_library_time_trigger:
-                    self.trigger_builtin( self.builtin_function, "music" )
-                    self.music_library_time_trigger = True
-            elif self.music_library_cycle == 0 and not self.current_day == self.music_library_day:
-                self.music_library_day_triggerd = False
-                self.music_library_time_trigger = False
-            elif self.music_library_cycle == 1 and ( self.current_time == self.music_library_time or ( self.current_time > self.music_library_time and self.current_time < ( self.test_time( self.music_library_time, test_interval + self.music_delay ) ) ) ) and not self.music_library_time_trigger:
-                self.trigger_builtin( self.builtin_function, "music" )
-                self.music_library_time_trigger = True
-            elif self.music_library_cycle == 1 and self.current_time > self.test_time( self.music_library_time, test_interval + 1 ):
-                self.music_library_time_trigger = False
-            elif self.music_library_cycle == 2 and not self.music_library_triggered:
-                xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.music_library_interval, xbmc.LOGNOTICE )
-                self.music_library_triggered = True
-                self.music_library_timer_set = True
-                self.music_library_timer = Timer( self.music_library_interval * hour_multiplier, self.trigger_builtin, [ self.builtin_function, "music" ] )
-                self.music_library_timer.setName('Music_Library_Timer')
-                self.music_library_timer.start()
+            if not self.video_library_time == "99:99":
+                if ( self.current_time > ( self.test_time( self.video_library_time, test_interval + self.video_delay ) ) and self.current_time < self.test_time( self.video_library_time, test_interval + self.video_delay + 2 ) ):
+                    self.video_delay += video_time_delay
+                    xbmc.log( "[service.scheduler] - Timer ran out, adding more time. Total Delay: %s Minutes" % self.music_delay, xbmc.LOGNOTICE )
+        if custom1:
+            if ( ( custom1_disable_music and self.music_scan ) or ( custom1_disable_video and self.video_scan ) ) and self.custom1_delay < 1:
+                if custom1_disable_music and self.music_scan:
+                    self.custom1_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom1_delay, xbmc.LOGNOTICE )
+                elif custom1_disable_video and self.video_scan:
+                    self.custom1_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom1_delay, xbmc.LOGNOTICE )
+        if custom2:
+            if ( ( custom2_disable_music and self.music_scan ) or ( custom2_disable_video and self.video_scan ) ) and self.custom2_delay < 1:
+                if custom2_disable_music and self.music_scan:
+                    self.custom2_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom2_delay, xbmc.LOGNOTICE )
+                elif custom2_disable_video and self.video_scan:
+                    self.custom2_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom2_delay, xbmc.LOGNOTICE )
+        if custom3:
+            if ( ( custom3_disable_music and self.music_scan ) or ( custom3_disable_video and self.video_scan ) ) and self.custom3_delay < 1:
+                if custom3_disable_music and self.music_scan:
+                    self.custom3_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom3_delay, xbmc.LOGNOTICE )
+                elif custom3_disable_video and self.video_scan:
+                    self.custom3_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom3_delay, xbmc.LOGNOTICE )
+        if custom4:
+            if ( ( custom4_disable_music and self.music_scan ) or ( custom4_disable_video and self.video_scan ) ) and self.custom4_delay < 1:
+                if custom4_disable_music and self.music_scan:
+                    self.custom4_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom4_delay, xbmc.LOGNOTICE )
+                elif custom4_disable_video and self.video_scan:
+                    self.custom4_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom4_delay, xbmc.LOGNOTICE )
+        if custom5:
+            if ( ( custom5_disable_music and self.music_scan ) or ( custom5_disable_video and self.video_scan ) ) and self.custom5_delay < 1:
+                if custom5_disable_music and self.music_scan:
+                    self.custom5_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom5_delay, xbmc.LOGNOTICE )
+                elif custom5_disable_video and self.video_scan:
+                    self.custom5_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom5_delay, xbmc.LOGNOTICE )
+        if custom6:
+            if ( ( custom6_disable_music and self.music_scan ) or ( custom6_disable_video and self.video_scan ) ) and self.custom6_delay < 1:
+                if custom6_disable_music and self.music_scan:
+                    self.custom6_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom6_delay, xbmc.LOGNOTICE )
+                elif custom6_disable_video and self.video_scan:
+                    self.custom6_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Library Library Scan in Progress, delaying %s Minutes " % self.custom6_delay, xbmc.LOGNOTICE )
+        if custom7:
+            if ( ( custom7_disable_music and self.music_scan ) or ( custom7_disable_video and self.video_scan ) ) and self.custom7_delay < 1:
+                if custom7_disable_music and self.music_scan:
+                    self.custom7_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom7_delay, xbmc.LOGNOTICE )
+                elif custom7_disable_video and self.video_scan:
+                    self.custom7_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Library Library Scan in Progress, delaying %s Minutes " % self.custom7_delay, xbmc.LOGNOTICE )
+        if custom8:
+            if ( ( custom8_disable_music and self.music_scan ) or ( custom8_disable_video and self.video_scan ) ) and self.custom8_delay < 1:
+                if custom8_disable_music and self.music_scan:
+                    self.custom8_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom8_delay, xbmc.LOGNOTICE )
+                elif custom8_disable_video and self.video_scan:
+                    self.custom8_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom8_delay, xbmc.LOGNOTICE )
+        if custom9:
+            if ( ( custom9_disable_music and self.music_scan ) or ( custom9_disable_video and self.video_scan ) )  and self.custom9_delay < 1:
+                if custom9_disable_music and self.music_scan:
+                    self.custom9_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom9_delay, xbmc.LOGNOTICE )
+                elif custom9_disable_video and self.video_scan:
+                    self.custom9_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom9_delay, xbmc.LOGNOTICE )
+        if custom10:
+            if ( ( custom10_disable_music and self.music_scan ) or ( custom10_disable_video and self.video_scan ) ) and self.custom10_delay < 1:
+                if custom10_disable_music and self.music_scan:
+                    self.custom10_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Music Library Scan in Progress, delaying %s Minutes " % self.custom10_delay, xbmc.LOGNOTICE )
+                elif ( custom10_disable_video and self.video_scan ):
+                    self.custom10_delay = general_time_delay
+                    xbmc.log( "[service.scheduler] - Video Library Scan in Progress, delaying %s Minutes " % self.custom10_delay, xbmc.LOGNOTICE )
+        # Check schedule
         if cdartmanager and not ( ( cdart_disable_music and self.music_scan ) or ( cdart_disable_video and self.video_scan ) ) and not self.cdartmanager_update and not self.cdartmanager_running:
             self.builtin_function = cdart_script % ( "autoall", "autocdart", "autocover", "autofanart", "autologo", "autothumb", "autobanner" )[ self.cdart_mode ]
             if self.cdart_cycle == 0 and self.current_day == self.cdart_day and not self.cdart_day_triggerd:
@@ -706,7 +706,7 @@ class Scheduler():
             elif self.custom2_cycle == 1 and self.current_time > self.test_time( self.custom2_time, test_interval + 1):
                 self.custom2_time_trigger = False
             elif self.custom2_cycle == 2 and not self.custom2_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom2_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 2 Hourly Schedule, every %s Hours" % self.custom2_interval, xbmc.LOGNOTICE )
                 self.custom2_triggered = True
                 self.custom2_timer_set = True
                 self.custom2_timer = Timer( self.custom2_interval * hour_multiplier, self.trigger_builtin, [ self.custom2_script, "custom2" ] )
@@ -726,7 +726,7 @@ class Scheduler():
             elif self.custom3_cycle == 1 and self.current_time > self.test_time( self.custom3_time, test_interval + 1 ):
                 self.custom3_time_trigger = False
             elif self.custom3_cycle == 2 and not self.custom3_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom3_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 3 Hourly Schedule, every %s Hours" % self.custom3_interval, xbmc.LOGNOTICE )
                 self.custom3_triggered = True
                 self.custom3_timer_set = True
                 self.custom3_timer = Timer( self.custom3_interval * hour_multiplier, self.trigger_builtin, [ self.custom3_script, "custom3" ] )
@@ -746,7 +746,7 @@ class Scheduler():
             elif self.custom4_cycle == 1 and self.current_time > self.test_time( self.custom4_time, test_interval + 1 ):
                 self.custom4_time_trigger = False
             elif self.custom4_cycle == 2 and not self.custom4_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom4_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 4 Hourly Schedule, every %s Hours" % self.custom4_interval, xbmc.LOGNOTICE )
                 self.custom4_triggered = True
                 self.custom4_timer_set = True
                 self.custom4_timer = Timer( self.custom4_interval * hour_multiplier, self.trigger_builtin, [ self.custom4_script, "custom4" ] )
@@ -766,7 +766,7 @@ class Scheduler():
             elif self.custom5_cycle == 1 and self.current_time > self.test_time( self.custom5_time, test_interval + 1 ):
                 self.custom5_time_trigger = False
             elif self.custom5_cycle == 2 and not self.custom5_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom5_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 5 Hourly Schedule, every %s Hours" % self.custom5_interval, xbmc.LOGNOTICE )
                 self.custom5_triggered = True
                 self.custom5_timer_set = True
                 self.custom5_timer = Timer( self.custom5_interval * hour_multiplier, self.trigger_builtin, [ self.custom5_script, "custom5" ] )
@@ -786,7 +786,7 @@ class Scheduler():
             elif self.custom6_cycle == 1 and self.current_time > self.test_time( self.custom6_time, test_interval + 1):
                 self.custom6_time_trigger = False
             elif self.custom6_cycle == 2 and not self.custom6_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom6_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 6 Hourly Schedule, every %s Hours" % self.custom6_interval, xbmc.LOGNOTICE )
                 self.custom6_triggered = True
                 self.custom6_timer_set = True
                 self.custom6_timer = Timer( self.custom6_interval * hour_multiplier, self.trigger_builtin, [ self.custom6_script, "custom6" ] )
@@ -806,7 +806,7 @@ class Scheduler():
             elif self.custom7_cycle == 1 and self.current_time > self.test_time( self.custom7_time, test_interval + 1 ):
                 self.custom7_time_trigger = False
             elif self.custom7_cycle == 2 and not self.custom7_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom7_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 7 Hourly Schedule, every %s Hours" % self.custom7_interval, xbmc.LOGNOTICE )
                 self.custom7_triggered = True
                 self.custom7_timer_set = True
                 self.custom7_timer = Timer( self.custom7_interval * hour_multiplier, self.trigger_builtin, [ self.custom7_script, "custom7" ] )
@@ -826,7 +826,7 @@ class Scheduler():
             elif self.custom8_cycle == 1 and self.current_time > self.test_time( self.custom8_time, test_interval + 1 ):
                 self.custom8_time_trigger = False
             elif self.custom8_cycle == 2 and not self.custom8_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom8_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 8 Hourly Schedule, every %s Hours" % self.custom8_interval, xbmc.LOGNOTICE )
                 self.custom8_triggered = True
                 self.custom8_timer_set = True
                 self.custom8_timer = Timer( self.custom8_interval * hour_multiplier, self.trigger_builtin, [ self.custom8_script, "custom8" ] )
@@ -846,7 +846,7 @@ class Scheduler():
             elif self.custom9_cycle == 1 and self.current_time > self.test_time( self.custom9_time, test_interval + 1):
                 self.custom9_time_trigger = False
             elif self.custom9_cycle == 2 and not self.custom9_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom9_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 9 Hourly Schedule, every %s Hours" % self.custom9_interval, xbmc.LOGNOTICE )
                 self.custom9_triggered = True
                 self.custom9_timer_set = True
                 self.custom9_timer = Timer( self.custom9_interval * hour_multiplier, self.trigger_builtin, [ self.custom9_script, "custom9" ] )
@@ -866,12 +866,54 @@ class Scheduler():
             elif self.custom10_cycle == 1 and self.current_time > self.test_time( self.custom10_time, test_interval + 1 ):
                 self.custom10_time_trigger = False
             elif self.custom10_cycle == 2 and not self.custom10_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom10_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 10 Hourly Schedule, every %s Hours" % self.custom10_interval, xbmc.LOGNOTICE )
                 self.custom10_triggered = True
                 self.custom10_timer_set = True
                 self.custom10_timer = Timer( self.custom10_interval * hour_multiplier, self.trigger_builtin, [ self.custom10_script, "custom10" ] )
                 self.custom10_timer.setName('Custom10_Timer')
                 self.custom10_timer.start()
+        if video_library:
+            self.builtin_function = video_library_script
+            if self.video_library_cycle == 0 and self.current_day == self.video_library_day and not self.video_library_day_triggerd:
+                if ( self.current_time == self.video_library_time or ( self.current_time > self.video_library_time and self.current_time < ( self.test_time( self.video_library_time, test_interval ) ) ) ) and not self.video_library_time_trigger:
+                    self.trigger_builtin( self.builtin_function, "video" )
+                    self.video_library_time_trigger = True
+            elif self.video_library_cycle == 0 and not self.current_day == self.video_library_day:
+                self.video_library_day_triggerd = False
+                self.video_library_time_trigger = False
+            elif self.video_library_cycle == 1 and ( self.current_time == self.video_library_time or ( self.current_time > self.video_library_time and self.current_time < ( self.test_time( self.video_library_time, test_interval + self.video_delay ) ) ) ) and not self.video_library_time_trigger:
+                self.trigger_builtin( self.builtin_function, "video" )
+                self.video_library_time_trigger = True
+            elif self.video_library_cycle == 1 and self.current_time > self.test_time( self.video_library_time, test_interval + 1 ):
+                self.video_library_time_trigger = False
+            elif self.video_library_cycle == 2 and not self.video_library_triggered and not self.delay_video_library:
+                xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.video_library_interval, xbmc.LOGNOTICE )
+                self.video_library_triggered = True
+                self.video_library_timer_set = True
+                self.video_library_timer = Timer( self.video_library_interval * hour_multiplier, self.trigger_builtin, [ self.builtin_function, "video" ] )
+                self.video_library_timer.setName('Video_Library_Timer')
+                self.video_library_timer.start()
+        if music_library and not ( self.cdartmanager_update or self.cdartmanager_running ):
+            self.builtin_function = music_library_script
+            if self.music_library_cycle == 0 and self.current_day == self.music_library_day and not self.music_library_day_triggerd:
+                if ( self.current_time == self.music_library_time or ( self.current_time > self.music_library_time and self.current_time < ( self.test_time( self.music_library_time, test_interval + self.music_delay ) ) ) ) and not self.music_library_time_trigger:
+                    self.trigger_builtin( self.builtin_function, "music" )
+                    self.music_library_time_trigger = True
+            elif self.music_library_cycle == 0 and not self.current_day == self.music_library_day:
+                self.music_library_day_triggerd = False
+                self.music_library_time_trigger = False
+            elif self.music_library_cycle == 1 and ( self.current_time == self.music_library_time or ( self.current_time > self.music_library_time and self.current_time < ( self.test_time( self.music_library_time, test_interval + self.music_delay ) ) ) ) and not self.music_library_time_trigger:
+                self.trigger_builtin( self.builtin_function, "music" )
+                self.music_library_time_trigger = True
+            elif self.music_library_cycle == 1 and self.current_time > self.test_time( self.music_library_time, test_interval + 1 ):
+                self.music_library_time_trigger = False
+            elif self.music_library_cycle == 2 and not self.music_library_triggered and not self.delay_music_library:
+                xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.music_library_interval, xbmc.LOGNOTICE )
+                self.music_library_triggered = True
+                self.music_library_timer_set = True
+                self.music_library_timer = Timer( self.music_library_interval * hour_multiplier, self.trigger_builtin, [ self.builtin_function, "music" ] )
+                self.music_library_timer.setName('Music_Library_Timer')
+                self.music_library_timer.start()
                 
     def start( self ):
         while (not xbmc.abortRequested):
@@ -894,8 +936,8 @@ class Scheduler():
             else:
                 self.music_scan = False
             if not self.interval:
-                xbmc.log( "[service.scheduler] - cdart_manager_running: %s" % ( "False", "True")[self.cdartmanager_running], xbmc.LOGDEBUG )
-                xbmc.log( "[service.scheduler] - cdart_manager_update: %s" % ( "False", "True")[self.cdartmanager_update], xbmc.LOGDEBUG )
+                xbmc.log( "[service.scheduler] - cdart_manager_running: %s" % ( "False", "True" )[self.cdartmanager_running], xbmc.LOGDEBUG )
+                xbmc.log( "[service.scheduler] - cdart_manager_update: %s" % ( "False", "True" )[self.cdartmanager_update], xbmc.LOGDEBUG )
                 if self.video_scan:
                     xbmc.log( "[service.scheduler] - Video Library Scan in progress", xbmc.LOGDEBUG )
                 if self.music_scan:
@@ -905,7 +947,7 @@ class Scheduler():
                 self.current_time = time.strftime( '%H:%M' )
                 if not self.current_day == self.previous_day:
                     self.previous_day = self.current_day
-                    xbmc.log( "[service.scheduler] - Current Day: %s" % ( "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")[ self.current_day ], xbmc.LOGDEBUG )
+                    xbmc.log( "[service.scheduler] - Current Day: %s" % ( "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" )[ self.current_day ], xbmc.LOGDEBUG )
                 xbmc.log( "[service.scheduler] - Current Time: %s" % self.current_time, xbmc.LOGDEBUG )
                 self.schedule_check()
                 self.set_interval_timer()

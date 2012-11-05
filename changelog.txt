@@ -1,3 +1,6 @@
+0.0.6
+- Fix - make sure that variables are set
+
 0.0.5
 - Change - Make delay times more adjustable, possible for future addon settings
 - Initial Release
