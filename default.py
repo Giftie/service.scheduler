@@ -221,144 +221,75 @@ class Scheduler():
         self.custom8_delay                    = 0
         self.custom9_delay                    = 0
         self.custom10_delay                   = 0
-        self.custom1_time                     = "99:99"
-        self.custom2_time                     = "99:99"
-        self.custom3_time                     = "99:99"
-        self.custom4_time                     = "99:99"
-        self.custom5_time                     = "99:99"
-        self.custom6_time                     = "99:99"
-        self.custom7_time                     = "99:99"
-        self.custom8_time                     = "99:99"
-        self.custom9_time                     = "99:99"
-        self.custom10_time                    = "99:99"
-        self.cdart_time                       = "99:99"
-        self.cdart_update_time                = "99:99"
-        self.video_library_time               = "99:99"
-        self.music_library_time               = "99:99"
 
     def set_timer_options( self ):
-        if cdartmanager:
-            self.cdart_mode                  = int( __addon__.getSetting( "cdart_mode" ) ) # available modes autoall(0), autocdart(1), autocover(2), autofanart(3), autologo(4), autothumb(5), autobanner(6)
-            self.cdart_cycle                 = int( __addon__.getSetting( "cdart_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.cdart_update_cycle          = int( __addon__.getSetting( "cdart_update_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            if self.cdart_cycle == 0: # If Weekly set day of the week
-                self.cdart_day               = int( __addon__.getSetting( "cdart_day" ) )
-            if self.cdart_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.cdart_time              =  __addon__.getSetting( "cdart_time" )
-            if self.cdart_cycle == 2: # If Hourly, set hour interval
-                self.cdart_interval          = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "cdart_interval" ) ) ]
-            if self.cdart_update_cycle == 0: # If Weekly set day of the week
-                self.cdart_update_day               = int( __addon__.getSetting( "cdart_update_day" ) )
-            if self.cdart_update_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.cdart_update_time     = __addon__.getSetting( "cdart_update_time" )
-            if self.cdart_update_cycle == 2: # If Hourly, set hour interval
-                self.cdart_update_interval          = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "cdart_update_interval" ) ) ]
-        if video_library:
-            self.video_library_cycle         = int( __addon__.getSetting( "video_library_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            if self.video_library_cycle == 0: # If Weekly set day of the week
-                self.video_library_day       = int( __addon__.getSetting( "video_library_day" ) )
-            if self.video_library_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.video_library_time        = __addon__.getSetting( "video_library_time" )
-            if self.video_library_cycle == 2: # If Hourly, set hour interval
-                self.video_library_interval  = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "video_library_interval" ) ) ]
-        if music_library:
-            self.music_library_cycle         = int( __addon__.getSetting( "music_library_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            if self.music_library_cycle == 0: # If Weekly set day of the week
-                self.music_library_day       = int( __addon__.getSetting( "music_library_day" ) )
-            if self.music_library_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.music_library_time        = __addon__.getSetting( "music_library_time" )
-            if self.music_library_cycle == 2: # If Hourly, set hour interval
-                self.music_library_interval  = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "music_library_interval" ) ) ]
-        if custom1:
-            self.custom1_cycle               = int( __addon__.getSetting( "custom1_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom1_script              = __addon__.getSetting( "custom1_script" )
-            if self.custom1_cycle == 0: # If Weekly set day of the week
-                self.custom1_day             = int( __addon__.getSetting( "custom1_day" ) )
-            if self.custom1_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom1_time            = __addon__.getSetting( "custom1_time" )
-            if self.custom1_cycle == 2: # If Hourly, set hour interval
-                self.custom1_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom1_interval" ) ) ]
-        if custom2:
-            self.custom2_cycle               = int( __addon__.getSetting( "custom2_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom2_script              = __addon__.getSetting( "custom2_script" )
-            if self.custom2_cycle == 0: # If Weekly set day of the week
-                self.custom2_day             = int( __addon__.getSetting( "custom2_day" ) )
-            if self.custom2_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom2_time            = __addon__.getSetting( "custom2_time" )
-            if self.custom2_cycle == 2: # If Hourly, set hour interval
-                self.custom2_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom2_interval" ) ) ]
-        if custom3:
-            self.custom3_cycle               = int( __addon__.getSetting( "custom3_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom3_script              = __addon__.getSetting( "custom3_script" )
-            if self.custom3_cycle == 0: # If Weekly set day of the week
-                self.custom3_day             = int( __addon__.getSetting( "custom3_day" ) )
-            if self.custom3_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom3_time            = __addon__.getSetting( "custom3_time" )
-            if self.custom3_cycle == 2: # If Hourly, set hour interval
-                self.custom3_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom3_interval" ) ) ]
-        if custom4:
-            self.custom4_cycle               = int( __addon__.getSetting( "custom4_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom4_script              = __addon__.getSetting( "custom4_script" )
-            if self.custom4_cycle == 0: # If Weekly set day of the week
-                self.custom4_day             = int( __addon__.getSetting( "custom4_day" ) )
-            if self.custom4_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom4_time            = __addon__.getSetting( "custom4_time" )
-            if self.custom4_cycle == 2: # If Hourly, set hour interval
-                self.custom4_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom4_interval" ) ) ]
-        if custom5:
-            self.custom5_cycle               = int( __addon__.getSetting( "custom5_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom5_script              = __addon__.getSetting( "custom5_script" )
-            if self.custom5_cycle == 0: # If Weekly set day of the week
-                self.custom5_day             = int( __addon__.getSetting( "custom5_day" ) )
-            if self.custom5_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom5_time            = __addon__.getSetting( "custom5_time" )
-            if self.custom5_cycle == 2: # If Hourly, set hour interval
-                self.custom5_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom5_interval" ) ) ]
-        if custom6:
-            self.custom6_cycle               = int( __addon__.getSetting( "custom6_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom6_script              = __addon__.getSetting( "custom6_script" )
-            if self.custom6_cycle == 0: # If Weekly set day of the week
-                self.custom6_day             = int( __addon__.getSetting( "custom6_day" ) )
-            if self.custom6_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom6_time            = __addon__.getSetting( "custom6_time" )
-            if self.custom6_cycle == 2: # If Hourly, set hour interval
-                self.custom6_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom6_interval" ) ) ]
-        if custom7:
-            self.custom7_cycle               = int( __addon__.getSetting( "custom7_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom7_script              = __addon__.getSetting( "custom7_script" )
-            if self.custom7_cycle == 0: # If Weekly set day of the week
-                self.custom7_day             = int( __addon__.getSetting( "custom7_day" ) )
-            if self.custom7_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom7_time            = __addon__.getSetting( "custom7_time" )
-            if self.custom7_cycle == 2: # If Hourly, set hour interval
-                self.custom7_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom7_interval" ) ) ]
-        if custom8:
-            self.custom8_cycle               = int( __addon__.getSetting( "custom8_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom8_script              = __addon__.getSetting( "custom8_script" )
-            if self.custom8_cycle == 0: # If Weekly set day of the week
-                self.custom8_day             = int( __addon__.getSetting( "custom8_day" ) )
-            if self.custom8_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom8_time            = __addon__.getSetting( "custom8_time" )
-            if self.custom8_cycle == 2: # If Hourly, set hour interval
-                self.custom8_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom8_interval" ) ) ]
-        if custom9:
-            self.custom9_cycle               = int( __addon__.getSetting( "custom9_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom9_script              = __addon__.getSetting( "custom9_script" )
-            if self.custom9_cycle == 0: # If Weekly set day of the week
-                self.custom9_day             = int( __addon__.getSetting( "custom9_day" ) )
-            if self.custom9_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom9_time            = __addon__.getSetting( "custom9_time" )
-            if self.custom9_cycle == 2: # If Hourly, set hour interval
-                self.custom9_interval        = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom9_interval" ) ) ]
-        if custom10:
-            self.custom10_cycle              = int( __addon__.getSetting( "custom10_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
-            self.custom10_script             = __addon__.getSetting( "custom10_script" )
-            if self.custom10_cycle == 0: # If Weekly set day of the week
-                self.custom10_day            = int( __addon__.getSetting( "custom10_day" ) )
-            if self.custom10_cycle in ( 0, 1 ): # If Weekly or Daily, set start time
-                self.custom10_time           = __addon__.getSetting( "custom10_time" )
-            if self.custom10_cycle == 2: # If Hourly, set hour interval
-                self.custom10_interval       = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom10_interval" ) ) ]
+        self.cdart_mode                  = int( __addon__.getSetting( "cdart_mode" ) ) # available modes autoall(0), autocdart(1), autocover(2), autofanart(3), autologo(4), autothumb(5), autobanner(6)
+        self.cdart_cycle                 = int( __addon__.getSetting( "cdart_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.cdart_update_cycle          = int( __addon__.getSetting( "cdart_update_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.cdart_day                   = int( __addon__.getSetting( "cdart_day" ) )
+        self.cdart_time                  =  __addon__.getSetting( "cdart_time" )
+        self.cdart_interval              = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "cdart_interval" ) ) ]
+        self.cdart_update_day            = int( __addon__.getSetting( "cdart_update_day" ) )
+        self.cdart_update_time           = __addon__.getSetting( "cdart_update_time" )
+        self.cdart_update_interval       = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "cdart_update_interval" ) ) ]
+        self.video_library_cycle         = int( __addon__.getSetting( "video_library_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.video_library_day           = int( __addon__.getSetting( "video_library_day" ) )
+        self.video_library_time          = __addon__.getSetting( "video_library_time" )
+        self.video_library_interval      = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "video_library_interval" ) ) ]
+        self.music_library_cycle         = int( __addon__.getSetting( "music_library_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.music_library_day           = int( __addon__.getSetting( "music_library_day" ) )
+        self.music_library_time          = __addon__.getSetting( "music_library_time" )
+        self.music_library_interval      = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "music_library_interval" ) ) ]
+        self.custom1_cycle               = int( __addon__.getSetting( "custom1_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom1_script              = __addon__.getSetting( "custom1_script" )
+        self.custom1_day                 = int( __addon__.getSetting( "custom1_day" ) )
+        self.custom1_time                = __addon__.getSetting( "custom1_time" )
+        self.custom1_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom1_interval" ) ) ]
+        self.custom2_cycle               = int( __addon__.getSetting( "custom2_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom2_script              = __addon__.getSetting( "custom2_script" )
+        self.custom2_day                 = int( __addon__.getSetting( "custom2_day" ) )
+        self.custom2_time                = __addon__.getSetting( "custom2_time" )
+        self.custom2_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom2_interval" ) ) ]
+        self.custom3_cycle               = int( __addon__.getSetting( "custom3_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom3_script              = __addon__.getSetting( "custom3_script" )
+        self.custom3_day                 = int( __addon__.getSetting( "custom3_day" ) )
+        self.custom3_time                = __addon__.getSetting( "custom3_time" )
+        self.custom3_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom3_interval" ) ) ]
+        self.custom4_cycle               = int( __addon__.getSetting( "custom4_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom4_script              = __addon__.getSetting( "custom4_script" )
+        self.custom4_day                 = int( __addon__.getSetting( "custom4_day" ) )
+        self.custom4_time                = __addon__.getSetting( "custom4_time" )
+        self.custom4_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom4_interval" ) ) ]
+        self.custom5_cycle               = int( __addon__.getSetting( "custom5_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom5_script              = __addon__.getSetting( "custom5_script" )
+        self.custom5_day                 = int( __addon__.getSetting( "custom5_day" ) )
+        self.custom5_time                = __addon__.getSetting( "custom5_time" )
+        self.custom5_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom5_interval" ) ) ]
+        self.custom6_cycle               = int( __addon__.getSetting( "custom6_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom6_script              = __addon__.getSetting( "custom6_script" )
+        self.custom6_day                 = int( __addon__.getSetting( "custom6_day" ) )
+        self.custom6_time                = __addon__.getSetting( "custom6_time" )
+        self.custom6_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom6_interval" ) ) ]
+        self.custom7_cycle               = int( __addon__.getSetting( "custom7_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom7_script              = __addon__.getSetting( "custom7_script" )
+        self.custom7_day                 = int( __addon__.getSetting( "custom7_day" ) )
+        self.custom7_time                = __addon__.getSetting( "custom7_time" )
+        self.custom7_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom7_interval" ) ) ]
+        self.custom8_cycle               = int( __addon__.getSetting( "custom8_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom8_script              = __addon__.getSetting( "custom8_script" )
+        self.custom8_day                 = int( __addon__.getSetting( "custom8_day" ) )
+        self.custom8_time                = __addon__.getSetting( "custom8_time" )
+        self.custom8_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom8_interval" ) ) ]
+        self.custom9_cycle               = int( __addon__.getSetting( "custom9_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom9_script              = __addon__.getSetting( "custom9_script" )
+        self.custom9_day                 = int( __addon__.getSetting( "custom9_day" ) )
+        self.custom9_time                = __addon__.getSetting( "custom9_time" )
+        self.custom9_interval            = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom9_interval" ) ) ]
+        self.custom10_cycle              = int( __addon__.getSetting( "custom10_cycle" ) ) # intervals - Weekly(0), Daily(1), Hourly(2)
+        self.custom10_script             = __addon__.getSetting( "custom10_script" )
+        self.custom10_day                = int( __addon__.getSetting( "custom10_day" ) )
+        self.custom10_time               = __addon__.getSetting( "custom10_time" )
+        self.custom10_interval           = ( 1, 2, 4, 8, 12 )[ int( __addon__.getSetting( "custom10_interval" ) ) ]
 
     def trigger_builtin( self, builtin_func, mode ):
         xbmc.log( "[service.scheduler] - Mode triggered: %s" % mode, xbmc.LOGNOTICE )
@@ -515,10 +446,6 @@ class Scheduler():
                 elif self.cdartmanager_running:
                     self.cdart_update_delay = cdart_update_time_delay
                     xbmc.log( "[service.scheduler] - cdART Manager already running, delaying %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
-            if not self.cdart_update_time == "99:99":
-                if ( self.current_time > ( self.test_time( self.cdart_update_time, test_interval + self.cdart_update_delay ) ) and self.current_time < ( self.test_time( self.cdart_update_time, test_interval + self.cdart_update_delay + 2 ) ) and self.cdartmanager_running and not self.cdartmanager_update ):
-                    self.cdart_update_delay += cdart_update_time_delay
-                    xbmc.log( "[service.scheduler] - Timer ran out, but cdART Manager is still running, adding more time. Total Delay: %s Minutes " % self.cdart_update_delay, xbmc.LOGNOTICE )
         if cdartmanager:
             if ( ( cdart_disable_music and self.music_scan ) or ( cdart_disable_video and self.video_scan ) ) or ( ( self.cdartmanager_update ) and self.cdart_delay < 1 ):
                 if cdart_disable_music and self.music_scan:
@@ -533,22 +460,9 @@ class Scheduler():
                         xbmc.log( "[service.scheduler] - cdART Manager already running in mode: Update, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
                     if self.cdartmanager_running:
                         xbmc.log( "[service.scheduler] - cdART Manager already running in mode: Running, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
-            if not self.cdart_time == "99:99":
-                if self.current_time > ( self.test_time( self.cdart_time, test_interval + self.cdart_delay ) ) and self.current_time < self.test_time( self.cdart_time, test_interval + self.cdart_delay + 2 ):
-                    self.cdart_delay += cdart_time_delay
-                    xbmc.log( "[service.scheduler] - Timer ran out, but cdART Manager is still running, adding more time. Total Delay: %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
         if music_library:
             if ( self.cdartmanager_update or self.cdartmanager_running ) and self.music_delay < 1: # Just to delay music library build if cdART Manager is running
                 self.music_delay = music_time_delay
-            if not self.music_library_time == "99:99":
-                if ( self.current_time > ( self.test_time( self.music_library_time, test_interval + self.music_delay ) ) and self.current_time < self.test_time( self.music_library_time, test_interval + self.music_delay + 2 ) ):
-                    self.music_delay += music_time_delay
-                    xbmc.log( "[service.scheduler] - Timer ran out, adding more time. Total Delay: %s Minutes" % self.music_delay, xbmc.LOGNOTICE )
-        if video_library:
-            if not self.video_library_time == "99:99":
-                if ( self.current_time > ( self.test_time( self.video_library_time, test_interval + self.video_delay ) ) and self.current_time < self.test_time( self.video_library_time, test_interval + self.video_delay + 2 ) ):
-                    self.video_delay += video_time_delay
-                    xbmc.log( "[service.scheduler] - Timer ran out, adding more time. Total Delay: %s Minutes" % self.music_delay, xbmc.LOGNOTICE )
         if custom1:
             if ( ( custom1_disable_music and self.music_scan ) or ( custom1_disable_video and self.video_scan ) ) and self.custom1_delay < 1:
                 if custom1_disable_music and self.music_scan:
