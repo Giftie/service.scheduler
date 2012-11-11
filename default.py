@@ -588,13 +588,13 @@ class Scheduler():
                 self.cdart_update_timer.start()
         if custom1 and not ( ( custom1_disable_music and self.music_scan ) or ( custom1_disable_video and self.video_scan ) ):
             if self.custom1_cycle == 0 and self.current_day == self.custom1_day and not self.custom1_day_triggerd:
-                if ( self.current_time == self.custom1_time or ( self.current_time > self.custom1_time and self.current_time < ( self.test_time( self.custom1_time, test_interval + custom1_delay ) ) ) ) and not self.custom1_time_trigger:
+                if ( self.current_time == self.custom1_time or ( self.current_time > self.custom1_time and self.current_time < ( self.test_time( self.custom1_time, test_interval + self.custom1_delay ) ) ) ) and not self.custom1_time_trigger:
                     self.trigger_builtin( self.custom1_script, "custom1" )
                     self.custom1_time_trigger = True
             elif self.custom1_cycle == 0 and not self.current_day == self.custom1_day:
                 self.custom1_day_triggerd = False
                 self.custom1_time_trigger = False
-            elif self.custom1_cycle == 1 and ( self.current_time == self.custom1_time or ( self.current_time > self.custom1_time and self.current_time < ( self.test_time( self.custom1_time, test_interval + custom1_delay ) ) ) ) and not self.custom1_time_trigger:
+            elif self.custom1_cycle == 1 and ( self.current_time == self.custom1_time or ( self.current_time > self.custom1_time and self.current_time < ( self.test_time( self.custom1_time, test_interval + self.custom1_delay ) ) ) ) and not self.custom1_time_trigger:
                 self.trigger_builtin( self.custom1_script, "custom1" )
                 self.custom1_time_trigger = True
             elif self.custom1_cycle == 1 and self.current_time > self.test_time( self.custom1_time, test_interval + 1):
@@ -608,13 +608,13 @@ class Scheduler():
                 self.custom1_timer.start()
         if custom2 and not ( ( custom2_disable_music and self.music_scan ) or ( custom2_disable_video and self.video_scan ) ):
             if self.custom2_cycle == 0 and self.current_day == self.custom2_day and not self.custom2_day_triggerd:
-                if ( self.current_time == self.custom2_time or ( self.current_time > self.custom2_time and self.current_time < ( self.test_time( self.custom2_time, test_interval + custom2_delay ) ) ) ) and not self.custom2_time_trigger:
+                if ( self.current_time == self.custom2_time or ( self.current_time > self.custom2_time and self.current_time < ( self.test_time( self.custom2_time, test_interval + self.custom2_delay ) ) ) ) and not self.custom2_time_trigger:
                     self.trigger_builtin( self.custom2_script, "custom2" )
                     self.custom2_time_trigger = True
             elif self.custom2_cycle == 0 and not self.current_day == self.custom2_day:
                 self.custom2_day_triggerd = False
                 self.custom2_time_trigger = False
-            elif self.custom2_cycle == 1 and ( self.current_time == self.custom2_time or ( self.current_time > self.custom2_time and self.current_time < ( self.test_time( self.custom2_time, test_interval + custom2_delay ) ) ) ) and not self.custom2_time_trigger:
+            elif self.custom2_cycle == 1 and ( self.current_time == self.custom2_time or ( self.current_time > self.custom2_time and self.current_time < ( self.test_time( self.custom2_time, test_interval + self.custom2_delay ) ) ) ) and not self.custom2_time_trigger:
                 self.trigger_builtin( self.custom2_script, "custom2" )
                 self.custom2_time_trigger = True
             elif self.custom2_cycle == 1 and self.current_time > self.test_time( self.custom2_time, test_interval + 1):
@@ -628,13 +628,13 @@ class Scheduler():
                 self.custom2_timer.start()
         if custom3 and ( ( custom3_disable_music and self.music_scan ) or ( custom3_disable_video and self.video_scan ) ):
             if self.custom3_cycle == 0 and self.current_day == self.custom3_day and not self.custom3_day_triggerd:
-                if ( self.current_time == self.custom3_time or ( self.current_time > self.custom3_time and self.current_time < ( self.test_time( self.custom3_time, test_interval + custom3_delay ) ) ) ) and not self.custom3_time_trigger:
+                if ( self.current_time == self.custom3_time or ( self.current_time > self.custom3_time and self.current_time < ( self.test_time( self.custom3_time, test_interval + self.custom3_delay ) ) ) ) and not self.custom3_time_trigger:
                     self.trigger_builtin( self.custom3_script, "custom3" )
                     self.custom3_time_trigger = True
             elif self.custom3_cycle == 0 and not self.current_day == self.custom3_day:
                 self.custom3_day_triggerd = False
                 self.custom3_time_trigger = False
-            elif self.custom3_cycle == 1 and ( self.current_time == self.custom3_time or ( self.current_time > self.custom3_time and self.current_time < ( self.test_time( self.custom3_time, test_interval + custom3_delay ) ) ) ) and not self.custom3_time_trigger:
+            elif self.custom3_cycle == 1 and ( self.current_time == self.custom3_time or ( self.current_time > self.custom3_time and self.current_time < ( self.test_time( self.custom3_time, test_interval + self.custom3_delay ) ) ) ) and not self.custom3_time_trigger:
                 self.trigger_builtin( self.custom3_script, "custom3" )
                 self.custom3_time_trigger = True
             elif self.custom3_cycle == 1 and self.current_time > self.test_time( self.custom3_time, test_interval + 1 ):
@@ -648,13 +648,13 @@ class Scheduler():
                 self.custom3_timer.start()
         if custom4 and not ( ( custom4_disable_music and self.music_scan ) or ( custom4_disable_video and self.video_scan ) ):
             if self.custom4_cycle == 0 and self.current_day == self.custom4_day and not self.custom4_day_triggerd:
-                if ( self.current_time == self.custom4_time or ( self.current_time > self.custom4_time and self.current_time < ( self.test_time( self.custom4_time, test_interval + custom4_delay ) ) ) ) and not self.custom4_time_trigger:
+                if ( self.current_time == self.custom4_time or ( self.current_time > self.custom4_time and self.current_time < ( self.test_time( self.custom4_time, test_interval + self.custom4_delay ) ) ) ) and not self.custom4_time_trigger:
                     self.trigger_builtin( self.custom4_script, "custom4" )
                     self.custom4_time_trigger = True
             elif self.custom4_cycle == 0 and not self.current_day == self.custom4_day:
                 self.custom4_day_triggerd = False
                 self.custom4_time_trigger = False
-            elif self.custom4_cycle == 1 and ( self.current_time == self.custom4_time or ( self.current_time > self.custom4_time and self.current_time < ( self.test_time( self.custom4_time, test_interval + custom4_delay ) ) ) ) and not self.custom4_time_trigger:
+            elif self.custom4_cycle == 1 and ( self.current_time == self.custom4_time or ( self.current_time > self.custom4_time and self.current_time < ( self.test_time( self.custom4_time, test_interval + self.custom4_delay ) ) ) ) and not self.custom4_time_trigger:
                 self.trigger_builtin( self.custom4_script, "custom4" )
                 self.custom4_time_trigger = True
             elif self.custom4_cycle == 1 and self.current_time > self.test_time( self.custom4_time, test_interval + 1 ):
@@ -668,13 +668,13 @@ class Scheduler():
                 self.custom4_timer.start()
         if custom5 and not ( ( custom5_disable_music and self.music_scan ) or ( custom5_disable_video and self.video_scan ) ):
             if self.custom5_cycle == 0 and self.current_day == self.custom5_day and not self.custom5_day_triggerd:
-                if ( self.current_time == self.custom5_time or ( self.current_time > self.custom5_time and self.current_time < ( self.test_time( self.custom5_time, test_interval + custom5_delay ) ) ) ) and not self.custom5_time_trigger:
+                if ( self.current_time == self.custom5_time or ( self.current_time > self.custom5_time and self.current_time < ( self.test_time( self.custom5_time, test_interval + self.custom5_delay ) ) ) ) and not self.custom5_time_trigger:
                     self.trigger_builtin( self.custom5_script, "custom5" )
                     self.custom5_time_trigger = True
             elif self.custom5_cycle == 0 and not self.current_day == self.custom5_day:
                 self.custom5_day_triggerd = False
                 self.custom5_time_trigger = False
-            elif self.custom5_cycle == 1 and ( self.current_time == self.custom5_time or ( self.current_time > self.custom5_time and self.current_time < ( self.test_time( self.custom5_time, test_interval + custom5_delay ) ) ) ) and not self.custom5_time_trigger:
+            elif self.custom5_cycle == 1 and ( self.current_time == self.custom5_time or ( self.current_time > self.custom5_time and self.current_time < ( self.test_time( self.custom5_time, test_interval + self.custom5_delay ) ) ) ) and not self.custom5_time_trigger:
                 self.trigger_builtin( self.custom5_script, "custom5" )
                 self.custom5_time_trigger = True
             elif self.custom5_cycle == 1 and self.current_time > self.test_time( self.custom5_time, test_interval + 1 ):
@@ -688,13 +688,13 @@ class Scheduler():
                 self.custom5_timer.start()
         if custom6 and not ( ( custom6_disable_music and self.music_scan ) or ( custom6_disable_video and self.video_scan ) ):
             if self.custom6_cycle == 0 and self.current_day == self.custom6_day and not self.custom6_day_triggerd:
-                if ( self.current_time == self.custom6_time or ( self.current_time > self.custom6_time and self.current_time < ( self.test_time( self.custom6_time, test_interval + custom6_delay ) ) ) ) and not self.custom6_time_trigger:
+                if ( self.current_time == self.custom6_time or ( self.current_time > self.custom6_time and self.current_time < ( self.test_time( self.custom6_time, test_interval + self.custom6_delay ) ) ) ) and not self.custom6_time_trigger:
                     self.trigger_builtin( self.custom6_script, "custom6" )
                     self.custom6_time_trigger = True
             elif self.custom6_cycle == 0 and not self.current_day == self.custom6_day:
                 self.custom6_day_triggerd = False
                 self.custom6_time_trigger = False
-            elif self.custom6_cycle == 1 and ( self.current_time == self.custom6_time or ( self.current_time > self.custom6_time and self.current_time < ( self.test_time( self.custom6_time, test_interval + custom6_delay ) ) ) ) and not self.custom6_time_trigger:
+            elif self.custom6_cycle == 1 and ( self.current_time == self.custom6_time or ( self.current_time > self.custom6_time and self.current_time < ( self.test_time( self.custom6_time, test_interval + self.custom6_delay ) ) ) ) and not self.custom6_time_trigger:
                 self.trigger_builtin( self.custom6_script, "custom6" )
                 self.custom6_time_trigger = True
             elif self.custom6_cycle == 1 and self.current_time > self.test_time( self.custom6_time, test_interval + 1):
@@ -708,13 +708,13 @@ class Scheduler():
                 self.custom6_timer.start()
         if custom7 and not ( ( custom7_disable_music and self.music_scan ) or ( custom7_disable_video and self.video_scan ) ):
             if self.custom7_cycle == 0 and self.current_day == self.custom7_day and not self.custom7_day_triggerd:
-                if ( self.current_time == self.custom7_time or ( self.current_time > self.custom7_time and self.current_time < ( self.test_time( self.custom7_time, test_interval + custom7_delay ) ) ) ) and not self.custom7_time_trigger:
+                if ( self.current_time == self.custom7_time or ( self.current_time > self.custom7_time and self.current_time < ( self.test_time( self.custom7_time, test_interval + self.custom7_delay ) ) ) ) and not self.custom7_time_trigger:
                     self.trigger_builtin( self.custom7_script, "custom7" )
                     self.custom7_time_trigger = True
             elif self.custom7_cycle == 0 and not self.current_day == self.custom7_day:
                 self.custom7_day_triggerd = False
                 self.custom7_time_trigger = False
-            elif self.custom7_cycle == 1 and ( self.current_time == self.custom7_time or ( self.current_time > self.custom7_time and self.current_time < ( self.test_time( self.custom7_time, test_interval + custom7_delay ) ) ) ) and not self.custom7_time_trigger:
+            elif self.custom7_cycle == 1 and ( self.current_time == self.custom7_time or ( self.current_time > self.custom7_time and self.current_time < ( self.test_time( self.custom7_time, test_interval + self.custom7_delay ) ) ) ) and not self.custom7_time_trigger:
                 self.trigger_builtin( self.custom7_script, "custom7" )
                 self.custom7_time_trigger = True
             elif self.custom7_cycle == 1 and self.current_time > self.test_time( self.custom7_time, test_interval + 1 ):
@@ -728,13 +728,13 @@ class Scheduler():
                 self.custom7_timer.start()
         if custom8 and not ( ( custom8_disable_music and self.music_scan ) or ( custom8_disable_video and self.video_scan ) ):
             if self.custom8_cycle == 0 and self.current_day == self.custom8_day and not self.custom8_day_triggerd:
-                if ( self.current_time == self.custom8_time or ( self.current_time > self.custom8_time and self.current_time < ( self.test_time( self.custom8_time, test_interval + custom8_delay ) ) ) ) and not self.custom8_time_trigger:
+                if ( self.current_time == self.custom8_time or ( self.current_time > self.custom8_time and self.current_time < ( self.test_time( self.custom8_time, test_interval + self.custom8_delay ) ) ) ) and not self.custom8_time_trigger:
                     self.trigger_builtin( self.custom8_script, "custom8" )
                     self.custom8_time_trigger = True
             elif self.custom8_cycle == 0 and not self.current_day == self.custom8_day:
                 self.custom8_day_triggerd = False
                 self.custom8_time_trigger = False
-            elif self.custom8_cycle == 1 and ( self.current_time == self.custom8_time or ( self.current_time > self.custom8_time and self.current_time < ( self.test_time( self.custom8_time, test_interval + custom8_delay ) ) ) ) and not self.custom8_time_trigger:
+            elif self.custom8_cycle == 1 and ( self.current_time == self.custom8_time or ( self.current_time > self.custom8_time and self.current_time < ( self.test_time( self.custom8_time, test_interval + self.custom8_delay ) ) ) ) and not self.custom8_time_trigger:
                 self.trigger_builtin( self.custom8_script, "custom8" )
                 self.custom8_time_trigger = True
             elif self.custom8_cycle == 1 and self.current_time > self.test_time( self.custom8_time, test_interval + 1 ):
@@ -748,13 +748,13 @@ class Scheduler():
                 self.custom8_timer.start()
         if custom9 and not ( ( custom9_disable_music and self.music_scan ) or ( custom9_disable_video and self.video_scan ) ):
             if self.custom9_cycle == 0 and self.current_day == self.custom9_day and not self.custom9_day_triggerd:
-                if ( self.current_time == self.custom9_time or ( self.current_time > self.custom9_time and self.current_time < ( self.test_time( self.custom9_time, test_interval + custom9_delay ) ) ) ) and not self.custom9_time_trigger:
+                if ( self.current_time == self.custom9_time or ( self.current_time > self.custom9_time and self.current_time < ( self.test_time( self.custom9_time, test_interval + self.custom9_delay ) ) ) ) and not self.custom9_time_trigger:
                     self.trigger_builtin( self.custom9_script, "custom9" )
                     self.custom9_time_trigger = True
             elif self.custom9_cycle == 0 and not self.current_day == self.custom9_day:
                 self.custom9_day_triggerd = False
                 self.custom9_time_trigger = False
-            elif self.custom9_cycle == 1 and ( self.current_time == self.custom9_time or ( self.current_time > self.custom9_time and self.current_time < ( self.test_time( self.custom9_time, test_interval + custom9_delay ) ) ) ) and not self.custom9_time_trigger:
+            elif self.custom9_cycle == 1 and ( self.current_time == self.custom9_time or ( self.current_time > self.custom9_time and self.current_time < ( self.test_time( self.custom9_time, test_interval + self.custom9_delay ) ) ) ) and not self.custom9_time_trigger:
                 self.trigger_builtin( self.custom9_script, "custom9" )
                 self.custom9_time_trigger = True
             elif self.custom9_cycle == 1 and self.current_time > self.test_time( self.custom9_time, test_interval + 1):
@@ -768,13 +768,13 @@ class Scheduler():
                 self.custom9_timer.start()
         if custom10 and not ( ( custom10_disable_music and self.music_scan ) or ( custom10_disable_video and self.video_scan ) ):
             if self.custom10_cycle == 0 and self.current_day == self.custom10_day and not self.custom10_day_triggerd:
-                if ( self.current_time == self.custom10_time or ( self.current_time > self.custom10_time and self.current_time < ( self.test_time( self.custom10_time, test_interval ) ) ) ) and not self.custom10_time_trigger:
+                if ( self.current_time == self.custom10_time or ( self.current_time > self.custom10_time and self.current_time < ( self.test_time( self.custom10_time, test_interval + self.custom10_delay ) ) ) ) and not self.custom10_time_trigger:
                     self.trigger_builtin( self.custom10_script, "custom10" )
                     self.custom10_time_trigger = True
             elif self.custom10_cycle == 0 and not self.current_day == self.custom10_day:
                 self.custom10_day_triggerd = False
                 self.custom10_time_trigger = False
-            elif self.custom10_cycle == 1 and ( self.current_time == self.custom10_time or ( self.current_time > self.custom10_time and self.current_time < ( self.test_time( self.custom10_time, test_interval ) ) ) ) and not self.custom10_time_trigger:
+            elif self.custom10_cycle == 1 and ( self.current_time == self.custom10_time or ( self.current_time > self.custom10_time and self.current_time < ( self.test_time( self.custom10_time, test_interval + self.custom10_delay ) ) ) ) and not self.custom10_time_trigger:
                 self.trigger_builtin( self.custom10_script, "custom10" )
                 self.custom10_time_trigger = True
             elif self.custom10_cycle == 1 and self.current_time > self.test_time( self.custom10_time, test_interval + 1 ):
