@@ -800,7 +800,7 @@ class Scheduler():
                 self.video_library_time_trigger = True
             elif self.video_library_cycle == 1 and self.current_time > self.test_time( self.video_library_time, test_interval + 1 ):
                 self.video_library_time_trigger = False
-            elif self.video_library_cycle == 2 and not self.video_library_triggered and not self.delay_video_library:
+            elif self.video_library_cycle == 2 and not self.video_library_triggered and not self.video_delay:
                 xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.video_library_interval, xbmc.LOGNOTICE )
                 self.video_library_triggered = True
                 self.video_library_timer_set = True
@@ -821,7 +821,7 @@ class Scheduler():
                 self.music_library_time_trigger = True
             elif self.music_library_cycle == 1 and self.current_time > self.test_time( self.music_library_time, test_interval + 1 ):
                 self.music_library_time_trigger = False
-            elif self.music_library_cycle == 2 and not self.music_library_triggered and not self.delay_music_library:
+            elif self.music_library_cycle == 2 and not self.music_library_triggered and not self.music_delay:
                 xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.music_library_interval, xbmc.LOGNOTICE )
                 self.music_library_triggered = True
                 self.music_library_timer_set = True
