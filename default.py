@@ -426,7 +426,7 @@ class Scheduler():
                         xbmc.log( "[service.scheduler] - cdART Manager already running in mode: Running, delaying %s Minutes " % self.cdart_delay, xbmc.LOGNOTICE )
         if self.music_library[ "enabled" ]:
             if ( self.cdartmanager_update or self.cdartmanager_running ) and self.music_delay < 1: # Just to delay music library build if cdART Manager is running
-                self.music_delay = music_time_delay
+                self.music_delay = self.music_time_delay
         if self.custom1[ "enabled" ]:
             if ( ( self.custom1[ "disabled_on_musicscan" ] and self.music_scan ) or ( self.custom1[ "disabled_on_videoscan" ] and self.video_scan ) ) and self.custom1_delay < 1:
                 if self.custom1[ "disabled_on_musicscan" ] and self.music_scan:
