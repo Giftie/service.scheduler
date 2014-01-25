@@ -1,3 +1,11 @@
+1.0.1
+
+- fix custom 3 schedule
+
+1.0.0
+
+- Change settings
+
 0.0.8
 
 - Fix - Make sure all customXX_delay variables are local and not global(ie self.custom1_delay)
