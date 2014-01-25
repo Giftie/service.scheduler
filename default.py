@@ -594,7 +594,7 @@ class Scheduler():
                 self.custom2_timer = Timer( self.custom2[ "interval" ] * hour_multiplier, self.trigger_builtin, [ self.custom2[ "script" ], "custom2" ] )
                 self.custom2_timer.setName('Custom2_Timer')
                 self.custom2_timer.start()
-        if self.custom3[ "enabled"] and ( ( self.custom3[ "disabled_on_musicscan" ] and self.music_scan ) or ( self.custom3[ "disabled_on_videoscan" ] and self.video_scan ) ):
+        if self.custom3[ "enabled" ] and not ( ( self.custom3[ "disabled_on_musicscan" ] and self.music_scan ) or ( self.custom3[ "disabled_on_videoscan" ] and self.video_scan ) ):
             if self.custom3[ "cycle" ] == 0 and self.current_day == self.custom3[ "day" ] and not self.custom3_day_triggerd:
                 if ( self.current_time == self.custom3[ "time" ] or ( self.current_time > self.custom3[ "time" ] and self.current_time < ( self.test_time( self.custom3[ "time" ], self.test_interval + self.custom3_delay ) ) ) ) and not self.custom3_time_trigger:
                     self.trigger_builtin( self.custom3[ "script" ], "custom3" )
@@ -615,7 +615,7 @@ class Scheduler():
                 self.custom3_timer = Timer( self.custom3[ "interval" ] * hour_multiplier, self.trigger_builtin, [ self.custom3[ "script" ], "custom3" ] )
                 self.custom3_timer.setName('Custom3_Timer')
                 self.custom3_timer.start()
-        if self.custom4[ "enabled"] and not ( ( self.custom4[ "disabled_on_musicscan" ] and self.music_scan ) or ( self.custom4[ "disabled_on_videoscan" ] and self.video_scan ) ):
+        if self.custom4[ "enabled" ] and not ( ( self.custom4[ "disabled_on_musicscan" ] and self.music_scan ) or ( self.custom4[ "disabled_on_videoscan" ] and self.video_scan ) ):
             if self.custom4[ "cycle" ] == 0 and self.current_day == self.custom4[ "day" ] and not self.custom4_day_triggerd:
                 if ( self.current_time == self.custom4[ "time" ] or ( self.current_time > self.custom4[ "time" ] and self.current_time < ( self.test_time( self.custom4[ "time" ], self.test_interval + self.custom4_delay ) ) ) ) and not self.custom4_time_trigger:
                     self.trigger_builtin( self.custom4[ "script" ], "custom4" )
