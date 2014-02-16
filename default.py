@@ -566,7 +566,7 @@ class Scheduler():
             elif self.custom1[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom1[ "time" ], self.test_interval + 1):
                 self.custom1_time_trigger = False
             elif self.custom1[ "cycle" ] == 2 and not self.custom1_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom1_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 1 Hourly Schedule, every %s Hours" % self.custom1[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom1_triggered = True
                 self.custom1_timer_set = True
@@ -587,7 +587,7 @@ class Scheduler():
             elif self.custom2[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom2[ "time" ], self.test_interval + 1):
                 self.custom2_time_trigger = False
             elif self.custom2[ "cycle" ] == 2 and not self.custom2_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 2 Hourly Schedule, every %s Hours" % self.custom2_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 2 Hourly Schedule, every %s Hours" % self.custom2[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom2_triggered = True
                 self.custom2_timer_set = True
@@ -608,7 +608,7 @@ class Scheduler():
             elif self.custom3[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom3[ "time" ], self.test_interval + 1 ):
                 self.custom3_time_trigger = False
             elif self.custom3[ "cycle" ] == 2 and not self.custom3_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 3 Hourly Schedule, every %s Hours" % self.custom3_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 3 Hourly Schedule, every %s Hours" % self.custom3[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom3_triggered = True
                 self.custom3_timer_set = True
@@ -629,7 +629,7 @@ class Scheduler():
             elif self.custom4[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom4[ "time" ], self.test_interval + 1 ):
                 self.custom4_time_trigger = False
             elif self.custom4[ "cycle" ] == 2 and not self.custom4_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 4 Hourly Schedule, every %s Hours" % self.custom4_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 4 Hourly Schedule, every %s Hours" % self.custom4[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom4_triggered = True
                 self.custom4_timer_set = True
@@ -650,7 +650,7 @@ class Scheduler():
             elif self.custom5[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom5[ "time" ], self.test_interval + 1 ):
                 self.custom5_time_trigger = False
             elif self.custom5[ "cycle" ] == 2 and not self.custom5_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 5 Hourly Schedule, every %s Hours" % self.custom5_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 5 Hourly Schedule, every %s Hours" % self.custom5[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom5_triggered = True
                 self.custom5_timer_set = True
@@ -671,7 +671,7 @@ class Scheduler():
             elif self.custom6[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom6[ "time" ], self.test_interval + 1):
                 self.custom6_time_trigger = False
             elif self.custom6[ "cycle" ] == 2 and not self.custom6_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 6 Hourly Schedule, every %s Hours" % self.custom6_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 6 Hourly Schedule, every %s Hours" % self.custom6[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom6_triggered = True
                 self.custom6_timer_set = True
@@ -692,7 +692,7 @@ class Scheduler():
             elif self.custom7[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom7[ "time" ], self.test_interval + 1 ):
                 self.custom7_time_trigger = False
             elif self.custom7[ "cycle" ] == 2 and not self.custom7_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 7 Hourly Schedule, every %s Hours" % self.custom7_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 7 Hourly Schedule, every %s Hours" % self.custom7[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom7_triggered = True
                 self.custom7_timer_set = True
@@ -713,7 +713,7 @@ class Scheduler():
             elif self.custom8[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom8[ "time" ], self.test_interval + 1 ):
                 self.custom8_time_trigger = False
             elif self.custom8[ "cycle" ] == 2 and not self.custom8_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 8 Hourly Schedule, every %s Hours" % self.custom8_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 8 Hourly Schedule, every %s Hours" % self.custom8[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom8_triggered = True
                 self.custom8_timer_set = True
@@ -734,7 +734,7 @@ class Scheduler():
             elif self.custom9[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom9[ "time" ], self.test_interval + 1):
                 self.custom9_time_trigger = False
             elif self.custom9[ "cycle" ] == 2 and not self.custom9_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 9 Hourly Schedule, every %s Hours" % self.custom9_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 9 Hourly Schedule, every %s Hours" % self.custom9[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom9_triggered = True
                 self.custom9_timer_set = True
@@ -755,7 +755,7 @@ class Scheduler():
             elif self.custom10[ "cycle" ] == 1 and self.current_time > self.test_time( self.custom10[ "time" ], self.test_interval + 1 ):
                 self.custom10_time_trigger = False
             elif self.custom10[ "cycle" ] == 2 and not self.custom10_triggered:
-                xbmc.log( "[service.scheduler] - Starting Custom 10 Hourly Schedule, every %s Hours" % self.custom10_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting Custom 10 Hourly Schedule, every %s Hours" % self.custom10[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.custom10_triggered = True
                 self.custom10_timer_set = True
@@ -777,7 +777,7 @@ class Scheduler():
             elif self.video_library[ "cycle" ] == 1 and self.current_time > self.test_time( self.video_library[ "time" ], self.test_interval + 1 ):
                 self.video_library_time_trigger = False
             elif self.video_library[ "cycle" ] == 2 and not self.video_library_triggered and not self.video_delay:
-                xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.video_library_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.video_library[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.video_library_triggered = True
                 self.video_library_timer_set = True
@@ -799,7 +799,7 @@ class Scheduler():
             elif self.music_library[ "cycle" ] == 1 and self.current_time > self.test_time( self.music_library[ "time" ], self.test_interval + 1 ):
                 self.music_library_time_trigger = False
             elif self.music_library[ "cycle" ] == 2 and not self.music_library_triggered and not self.music_delay:
-                xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.music_library_interval, xbmc.LOGNOTICE )
+                xbmc.log( "[service.scheduler] - Starting music Library Hourly Schedule, every %s Hours" % self.music_library[ "interval" ], xbmc.LOGNOTICE )
                 xbmc.sleep( 250 )
                 self.music_library_triggered = True
                 self.music_library_timer_set = True
